@@ -45,7 +45,7 @@ pip install streamlit pandas requests openai
 ### File Import Dependencies
 
 
-![Import Dependencies](dependencies.mermaid)
+![Import Dependencies](dependencies.svg)
 ### Application Architecture & Flow
 
 
