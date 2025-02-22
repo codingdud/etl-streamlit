@@ -51,7 +51,7 @@ def show_transform_page():
         df = st.session_state['current_df']
 
     # Proceed with transformations if a DataFrame is loaded
-    transformer = DataTransformer()
+    # transformer = DataTransformer()
 
     # Sidebar for the number of rows to display
     with st.sidebar:

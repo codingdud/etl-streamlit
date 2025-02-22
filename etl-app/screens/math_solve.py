@@ -5,8 +5,8 @@ from openai import OpenAI  # or the specific NVIDIA SDK you're using
 def show_math_solver():
     # Set up NVIDIA API client
     client = OpenAI(
-        base_url="https://integrate.api.nvidia.com/v1",
-        api_key=st.secrets["NVIDIA_API_KEY"]
+        base_url="https://api.groq.com/openai/v1",
+        api_key=st.secrets["GROQ_API_KEY"]
     )
 
     # Initialize session state for messages
@@ -35,7 +35,7 @@ def show_math_solver():
         # Generate a response from the API
         response_text = ""
         completion = client.chat.completions.create(
-            model="nvidia/llama-3.1-nemotron-70b-instruct",
+            model="qwen-2.5-32b",
             messages=[{"role": m["role"], "content": m["content"]} for m in st.session_state.messages],
             temperature=0.5,
             max_tokens=1024,

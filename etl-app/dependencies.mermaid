@@ -1,0 +1,36 @@
+graph LR
+    subgraph Main Application
+        APP[app.py] --> |imports| CONSTANTS[constants.py]
+        APP --> |imports| SCREENS[screens/__init__.py]
+    end
+
+    subgraph Screens Module
+        SCREENS --> |imports| SEARCH_SCREEN[search_screen.py]
+        SCREENS --> |imports| TRANSFORM_SCREEN[transform_screen.py]
+        SCREENS --> |imports| AI_SCREEN[ai_screen.py]
+        
+        SEARCH_SCREEN --> |uses| BING_SERVICE[services/bing_service.py]
+        TRANSFORM_SCREEN --> |uses| TRANSFORM_LOGIC[data/transform_logic.py]
+        AI_SCREEN --> |uses| GROQ_SERVICE[services/groq_service.py]
+    end
+
+    subgraph Components
+        SEARCH_SCREEN --> |uses| FILE_UPLOADER[components/file_uploader.py]
+        TRANSFORM_SCREEN --> |uses| DATA_PREVIEW[components/data_preview.py]
+        AI_SCREEN --> |uses| CHAT_UI[components/chat_interface.py]
+    end
+
+    subgraph Services
+        BING_SERVICE --> |uses| FILE_SERVICE[services/file_service.py]
+        GROQ_SERVICE --> |uses| FILE_SERVICE
+    end
+
+    classDef main fill:#85C1E9,stroke:#2E86C1
+    classDef screen fill:#82E0AA,stroke:#229954
+    classDef component fill:#F8C471,stroke:#D35400
+    classDef service fill:#BB8FCE,stroke:#8E44AD
+
+    class APP main
+    class SEARCH_SCREEN,TRANSFORM_SCREEN,AI_SCREEN screen
+    class FILE_UPLOADER,DATA_PREVIEW,CHAT_UI component
+    class BING_SERVICE,GROQ_SERVICE,FILE_SERVICE service

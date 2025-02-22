@@ -26,12 +26,24 @@ def show_transformations_and_apply(df, transformed_num_rows):
     # Configuration for specific transformations
     fill_value = None
     if selected_transform == "Fill NA":
-        fill_value = st.sidebar.number_input("Fill value", value=0)
+        if selected_column != "None":
+            fill_value = st.sidebar.number_input("Fill value", value=0)
 
     # Separate option for dropping a column
     column_to_drop = None
     if selected_transform == "Drop Column":
         column_to_drop = st.sidebar.selectbox("Select column to drop", columns)
+        if selected_transform == "Drop Column" and column_to_drop!="None":
+            # Start with the most recent `current_df`
+            if 'current_df' in st.session_state:
+                base_df = st.session_state['current_df'].copy()
+            else:
+                base_df = df.copy()  # Fallback to the provided DataFrame
+            base_df = transformer.drop_column(base_df, column=column_to_drop)
+            # Display the transformed DataFrame
+            st.write("### Transformed Data Preview")
+            st.dataframe(base_df.head(transformed_num_rows))
+            st.write(f"Total rows: {len(base_df)}")
 
     # Option to filter data by a specific value
     filter_column = st.sidebar.selectbox("Select column to filter", ["None"] + columns)
